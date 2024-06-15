@@ -3,7 +3,7 @@ import "./Dashboard.scss";
 const Dashboard = () => {
   return (
     <div className="dashboard">
-      <div className="d-flex justify-content-between gap-4">
+      {/* <div className="d-flex justify-content-between gap-4">
       <Link to="/project">
         <article>
           <figure>
@@ -12,7 +12,7 @@ const Dashboard = () => {
           <h2>Project</h2>
         </article>
         </Link>
-      </div>
+      </div> */}
     </div>
   );
 };
