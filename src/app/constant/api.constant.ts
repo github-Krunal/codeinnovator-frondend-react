@@ -3,4 +3,5 @@ export class APIConstant{
     public static getAllProject=APIConstant.BaseAPI+"projectlist"
     public static saveProject=APIConstant.BaseAPI+"projectadd"
     public static deleteProject=APIConstant.BaseAPI+"projectdelete"
+    public static getAllApps=APIConstant.BaseAPI+"getApps"
 }

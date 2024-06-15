@@ -1,0 +1,9 @@
+const DashboardProject=()=>{
+    return (
+        <div>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto nesciunt temporibus nam vel, sed modi. Quisquam animi voluptatum vero iste illo aperiam temporibus reiciendis dolorem cupiditate eligendi? Maiores labore ducimus facilis, cum ullam quas possimus? Voluptatibus nesciunt, doloribus, eaque perferendis consectetur corrupti sed nihil possimus tempora nulla recusandae! Harum voluptatum qui soluta, eius vero earum similique est aut beatae autem pariatur eos et recusandae atque esse a temporibus voluptatibus asperiores quibusdam dolor! Rerum beatae eos est, totam deserunt quo harum molestiae adipisci expedita iure rem fugiat doloribus sint eveniet, corporis temporibus consectetur dolor. Asperiores alias deserunt aut recusandae esse? Autem, alias dicta cum esse quam veniam aperiam praesentium, aut a voluptatem sed? Dolor nostrum, id ex debitis similique modi aliquam mollitia. Quidem, adipisci quisquam at culpa iste eos, cupiditate distinctio atque nisi deleniti quae enim dolorum impedit consequatur laudantium tenetur eveniet veniam? Quae iste repellendus obcaecati aliquid asperiores quasi expedita numquam rem ut dignissimos? Asperiores illo beatae ut quo illum ex rem enim est praesentium inventore omnis adipisci dolores eaque perspiciatis at assumenda, harum animi reprehenderit. Quae nemo temporibus praesentium optio voluptas id ex officiis sequi, est repudiandae nobis minima. Neque dignissimos doloribus eveniet ducimus similique, necessitatibus natus ad reprehenderit.
+        </div>
+    )
+}
+
+export default DashboardProject
