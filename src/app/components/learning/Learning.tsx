@@ -19,13 +19,17 @@ const Learning=()=>{
                         <li>Node</li>
                         <li>Express</li>
                         <li>Nest</li>
-                        <li>Java</li>
+                        <li>Python</li>
                     </ul>
                 </div>
                 <div>
                     <h1>UI Library</h1>
                     <ul>
                         <li>Bootstrap</li>
+                        <li>Material UI</li>
+                        <li>Tailwind</li>
+                        <li>Scadcn</li>
+                        <li>style component</li>
                     </ul>
                 </div>
                 <div>
@@ -38,6 +42,8 @@ const Learning=()=>{
                         <li>WebHook</li>
                         <li>Soket.io</li>
                         <li>TensorFlow</li>
+                        <li>Trpc</li>
+                        <li>TypeORM</li>
                     </ul>
                 </div>
                 <div>
@@ -46,6 +52,12 @@ const Learning=()=>{
                         <li>MongdoDB</li>
                         <li>Redis</li>
                         <li>Sql server</li>
+                    </ul>
+                </div>
+                <div>
+                    <h1>Mobile App</h1>
+                    <ul>
+                        <li>Ionic</li>
                     </ul>
                 </div>
             </div>
