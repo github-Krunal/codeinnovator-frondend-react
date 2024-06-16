@@ -21,7 +21,8 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import CottageOutlinedIcon from '@mui/icons-material/CottageOutlined';
 import ScheduleRoundedIcon from '@mui/icons-material/ScheduleRounded';
-import { Outlet } from 'react-router-dom';
+import AcUnitIcon from '@mui/icons-material/AcUnit';
+import { Link, Outlet } from 'react-router-dom';
 const drawerWidth = 240;
 
 interface Props {
@@ -57,14 +58,14 @@ export default function ProjectNavigation(props: Props) {
       <Toolbar >
            <div className='w-100 text-center'>
       <Typography variant="h6" noWrap component="div">
-           <ScheduleRoundedIcon fontSize="large"/>
+           <AcUnitIcon fontSize="large"/>
           </Typography>
            </div>
       </Toolbar>
       <Divider />
       <List>
-        {['Dashboard'].map((text, index) => (
-          <ListItem key={text} disablePadding>
+        {['Dashboard','Task'].map((text, index) => (
+          <ListItem key={text} disablePadding component={Link} to="task">
             <ListItemButton>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
@@ -136,9 +137,17 @@ export default function ProjectNavigation(props: Props) {
           open
         >
           {drawer}
+
         </Drawer>
+
       </Box>
-      <Outlet/>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+      >
+        <Toolbar />
+        <Outlet/>
+      </Box>
 
     </Box>
   );

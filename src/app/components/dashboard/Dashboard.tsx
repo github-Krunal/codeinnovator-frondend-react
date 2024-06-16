@@ -7,13 +7,13 @@ import Blog from './Blog';
 import Footer from './Footer';
 const Dashboard = () => {
   return (
-    <>
+    <div className="dashboard_component">
     <Banner/>
     <Project/>
     <Language/>
     <Blog/>
     <Footer/>
-    </>
+    </div>
   );
 };
 
