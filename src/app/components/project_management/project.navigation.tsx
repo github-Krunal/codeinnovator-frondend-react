@@ -64,13 +64,21 @@ export default function ProjectNavigation(props: Props) {
       </Toolbar>
       <Divider />
       <List>
-        {['Dashboard','Task'].map((text, index) => (
-          <ListItem key={text} disablePadding component={Link} to="task">
+        {[{
+          Name:"Dashboard",
+          URL:"Dashboard"
+        },
+        {
+          Name:"Task",
+          URL:"task"
+        }
+      ].map((text, index) => (
+          <ListItem key={text.Name} disablePadding component={Link} to={text.URL}>
             <ListItemButton>
               <ListItemIcon>
                 {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
               </ListItemIcon>
-              <ListItemText primary={text} />
+              <ListItemText primary={text.Name} />
             </ListItemButton>
           </ListItem>
         ))}
@@ -102,7 +110,7 @@ export default function ProjectNavigation(props: Props) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap component="div">
-            Responsive drawer
+            Dashboard
           </Typography>
         </Toolbar>
       </AppBar>

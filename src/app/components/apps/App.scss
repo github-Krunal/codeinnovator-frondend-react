@@ -10,3 +10,9 @@ img {
     background-color: grey;
 }
 
+
+.grid-container {
+    display: grid;
+    grid-template-columns: auto auto;
+  }
+  
