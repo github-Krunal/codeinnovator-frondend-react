@@ -7,6 +7,8 @@ import Apps from "./app/components/apps/Apps";
 import ProjectNavigation from "./app/components/project_management/project.navigation";
 import DashboardProject from "./app/components/project_management/dashboard.project";
 import TaskProject from "./app/components/project_management/task.project";
+import CourseHome from "./app/components/courses/courseHome";
+import CourseDashboard from "./app/components/courses/courseDashboard";
 
 function App() {
   return (
@@ -20,6 +22,9 @@ function App() {
             <Route path="" element={<DashboardProject />} />
             <Route path="dashboard" element={<DashboardProject />} />
             <Route path="task" element={<TaskProject />} />
+          </Route>
+          <Route path="/course" element={<CourseHome/>}>
+          <Route path="" element={<CourseDashboard />} />
           </Route>
         </Routes>
       </BrowserRouter>
