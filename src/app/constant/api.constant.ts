@@ -5,4 +5,7 @@ export class APIConstant{
     public static deleteProject=APIConstant.BaseAPI+"projectdelete"
     public static getAllApps=APIConstant.BaseAPI+"getApps"
     public static ADD_TASK=APIConstant.BaseAPI+"addTask"
+    public static ADD_ATTENDENCE=APIConstant.BaseAPI+"addAttendence"
+    public static GET_ATTENDENCE=APIConstant.BaseAPI+"getAttendence"
+    public static UPDATE_ATTENDENCE=APIConstant.BaseAPI+"updateAttendence"
 }

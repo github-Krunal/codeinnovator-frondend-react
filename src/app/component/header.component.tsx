@@ -14,7 +14,7 @@ import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import Menu from '@mui/material/Menu';
-import { ImageContant } from "../../constant/image.constant";
+import { ImageContant } from '../constant/image.constant';
 
 
 const pages = ['Products', 'Pricing', 'Blog'];
@@ -63,7 +63,7 @@ const Search = styled('div')(({ theme }) => ({
   }));
   
 
-const CourseHeader=()=>{
+const Header=()=>{
     const [anchorElNav, setAnchorElNav] = useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -140,4 +140,4 @@ const CourseHeader=()=>{
     )
 }
 
-export default CourseHeader
+export default Header

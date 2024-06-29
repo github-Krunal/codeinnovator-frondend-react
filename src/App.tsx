@@ -1,22 +1,18 @@
 import React from "react";
 import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Learning from "./app/components/learning/Learning";
-import Dashboard from "./app/components/dashboard/Dashboard";
-import Apps from "./app/components/apps/Apps";
-import ProjectNavigation from "./app/components/project_management/project.navigation";
-import DashboardProject from "./app/components/project_management/dashboard.project";
-import TaskProject from "./app/components/project_management/task.project";
-import CourseHome from "./app/components/courses/courseHome";
-import CourseDashboard from "./app/components/courses/courseDashboard";
+import Dashboard from "./app/component/dashboard.component";
+import Header from "./app/component/header.component";
+
 
 function App() {
   return (
     <div>
+      <Header/>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<Apps />} />
-          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/" element={<Dashboard />} />
+          {/* <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/learn" element={<Learning />} />
           <Route path="/project" element={<ProjectNavigation />}>
             <Route path="" element={<DashboardProject />} />
@@ -25,7 +21,7 @@ function App() {
           </Route>
           <Route path="/course" element={<CourseHome/>}>
           <Route path="" element={<CourseDashboard />} />
-          </Route>
+          </Route> */}
         </Routes>
       </BrowserRouter>
     </div>
