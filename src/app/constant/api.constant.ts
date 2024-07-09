@@ -8,4 +8,6 @@ export class APIConstant{
     public static ADD_ATTENDENCE=APIConstant.BaseAPI+"addAttendence"
     public static GET_ATTENDENCE=APIConstant.BaseAPI+"getAttendence"
     public static UPDATE_ATTENDENCE=APIConstant.BaseAPI+"updateAttendence"
+    public static CREATE_PLANNER=APIConstant.BaseAPI+"createPlanner"
+    public static GET_PLANNER=APIConstant.BaseAPI+"getPlanner"
 }
