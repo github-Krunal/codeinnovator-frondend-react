@@ -3,6 +3,8 @@ import "./App.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Dashboard from "./app/component/dashboard.component";
 import Header from "./app/component/header.component";
+import Planner from "./app/component/planner/planner.component";
+import PlannerDetail from "./app/component/planner/plannerDetail/plannerDetail";
 
 
 function App() {
@@ -12,6 +14,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Dashboard />} />
+          <Route path="/planner" element={<Planner />} />
+          <Route path="/planner/:id" element={<PlannerDetail />} />
           {/* <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/learn" element={<Learning />} />
           <Route path="/project" element={<ProjectNavigation />}>

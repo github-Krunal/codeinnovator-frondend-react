@@ -3,6 +3,7 @@ import AlarmOffOutlinedIcon from '@mui/icons-material/AlarmOffOutlined';
 import { useEffect, useState } from 'react';
 import moment from 'moment';
 import Timer from './timer';
+import AppList from './appList.component';
 const Dashboard = () => {
     const [hours,setHours]=useState<number>(0)
     const [minutes,setMinutes]=useState<number>(0)
@@ -33,10 +34,11 @@ const Dashboard = () => {
             <p className="fw-bold fs-5 text-muted">Krunal Kumbhare</p>
           </div>
           <Timer/>
-
         
         </div>
       </div>
+      <AppList/>
+
     </div>
   );
 };
