@@ -2,6 +2,8 @@ body{
     width: 100%;
     height: 100%;
     overflow-x: hidden;
+    font-family: "Poppins", sans-serif!important;
+    font-size: 14px!important;
 }
 img{
     object-fit: cover;
