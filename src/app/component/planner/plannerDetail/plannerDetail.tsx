@@ -10,7 +10,11 @@ import DialogContent from '@mui/material/DialogContent';
 import TextField from '@mui/material/TextField';
 import { ContainerModel } from "../../../model/container.model";
 import { TasksModel } from "../../../model/tasks.model";
-
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { useTheme } from '@mui/material/styles';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 const PlannerDetail = () => {
   let { id } = useParams();
   const [plannerList,setPlannerList]=useState<ContainerModel[]>([])
@@ -18,6 +22,11 @@ const PlannerDetail = () => {
   const [plan,setPlan]=useState<PlannerModel>();
   const [open, setOpen] =useState(false);
   const [openTask, setOpenTask] =useState<boolean>(false);
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('md'));
+  const [openDelete, setOpenDelete] =useState(false);
+  const [deleteContainerID,setDeleteContainerID]=useState<string>('')
+
 
   useEffect(()=>{
     getPlanDetail();
@@ -73,6 +82,31 @@ const PlannerDetail = () => {
   const handleCloseTask = () => {
     setOpenTask(false);
   };
+  function deleteContainerHandler(container:ContainerModel){
+    if(container&&container._id){
+      setDeleteContainerID(container._id)
+      setOpenDelete(true)
+    }
+   
+  }
+  function handleCloseDelete(){
+    setOpenDelete(false)
+  }
+  function handleDeleteOK(){
+    handleCloseDelete()
+    fetch(APIConstant.DELETE_CONTAINER+"/"+deleteContainerID, {
+      method: 'DELETE',
+    })
+    .then(res => res.text()) 
+    .then(res => 
+      setPlannerList(oldOption => {
+        const containerList = [...oldOption];
+       return containerList.filter(cnt=>cnt._id!=deleteContainerID)
+      })
+      )
+
+      setDeleteContainerID('')
+  }
 
   return (
     <div>
@@ -131,11 +165,36 @@ const PlannerDetail = () => {
         plannerList&&plannerList.length>0?
         plannerList.map((plan)=>(
           <div style={{width:'275px'}} key={plan._id}>
-          <div className="p-2" style={{borderBottom:"1px solid",boxShadow:"0px 0px 10px grey"}}> {plan.Name}</div>
+            <div className="p-2 d-flex justify-content-between" style={{borderBottom:"1px solid",boxShadow:"0px 0px 10px grey"}}>
+
+          <div  > {plan.Name}
+            </div>
+            <div>
+            <Dialog
+        fullScreen={fullScreen}
+        open={openDelete}
+        onClose={handleCloseDelete}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogTitle id="responsive-dialog-title">
+          {"Are you sure want to perform delete action?"}
+        </DialogTitle>
+        <DialogActions>
+          <Button autoFocus onClick={handleCloseDelete}>
+            Cancel
+          </Button>
+          <Button onClick={handleDeleteOK} autoFocus>
+            Ok
+          </Button>
+        </DialogActions>
+      </Dialog>
+<DeleteOutlineIcon onClick={()=>deleteContainerHandler(plan)}/>
+            </div>
+          </div>
              <ul className="list-unstyled p-1" style={{minHeight:"5vh",maxHeight:"78vh",overflow:"overlay",boxShadow:"0px 0px 10px grey"}}>
               {
                  plan.Tasks&& plan.Tasks.length>0?
-                plan.Tasks.map((task:any)=>(
+                plan.Tasks.map((task:TasksModel)=>(
                   <li key={task._id}>
                   <div
                    style={{
@@ -149,9 +208,7 @@ const PlannerDetail = () => {
                     <span className="badge rounded-pill text-bg-primary me-2">
                       Tsk-1474
                     </span>
-                    Estimate your retirement needs, set savings goals, and develop a
-                    retirement savings strategy to achieve financial security in
-                    retirement.
+                      {task.TaskName}
                     <div className="my-2">
                       <span className="badge rounded-pill text-bg-secondary me-2">
                         Verfication
