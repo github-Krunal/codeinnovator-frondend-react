@@ -118,32 +118,37 @@ const PlannerDetail = () => {
   }
 
   const onDragEnd = (result: any) => {
-    debugger
+    debugger;
     if (!result.destination) return;
     const { source, destination } = result;
 
     if (source.droppableId !== destination.droppableId) {
       // Move task between columns
-      const sourceColumn = plannerList.find((column) => column._id === source.droppableId);
-      const destColumn = plannerList.find((column) => column._id === destination.droppableId);
+      const sourceColumn = plannerList.find(
+        (column) => column._id === source.droppableId
+      );
+      const destColumn = plannerList.find(
+        (column) => column._id === destination.droppableId
+      );
 
-      const removed:any = sourceColumn&&sourceColumn.Tasks.splice(source.index, 1);
-      destColumn&&destColumn.Tasks.splice(destination.index, 0, ...removed);
+      const removed: any =
+        sourceColumn && sourceColumn.Tasks.splice(source.index, 1);
+      destColumn && destColumn.Tasks.splice(destination.index, 0, ...removed);
       console.log(destColumn);
-      
     } else {
       // Reorder tasks within the same column
-      const column = plannerList.find((column) => column._id === source.droppableId);
-      const removed:any= column?.Tasks.splice(source.index, 1);
-      if(column){
-        if(removed){
+      const column = plannerList.find(
+        (column) => column._id === source.droppableId
+      );
+      const removed: any = column?.Tasks.splice(source.index, 1);
+      if (column) {
+        if (removed) {
           column.Tasks.splice(destination.index, 0, ...removed);
         }
       }
     }
-    
+
     setPlannerList([...plannerList]);
-    
   };
 
   return (
@@ -196,159 +201,167 @@ const PlannerDetail = () => {
         <div className="m-4 my-0 d-flex gap-2">
           {plannerList && plannerList.length > 0
             ? plannerList.map((plan) => (
-              <Droppable droppableId={plan._id ? plan._id : ''} key={plan._id}>
-                {(provided: any) => (
-                  <div 
-                    style={{ width: "275px" }}
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                  >
-                    <div 
-                      className="p-2 my-3 d-flex justify-content-between"
-                      style={{
-                        background: "rgb(166 156 156 / 31%)",
-                        boxShadow: "0px 6px 5px #a9a6a6",
-                      }}
+                <Droppable
+                  droppableId={plan._id ? plan._id : ""}
+                  key={plan._id}
+                >
+                  {(provided: any) => (
+                    <div
+                      style={{ width: "275px" }}
+                      {...provided.droppableProps}
+                      ref={provided.innerRef}
                     >
-                      <div> {plan.Name}</div>
-                      <div >
-                        <Dialog
-                          fullScreen={fullScreen}
-                          open={openDelete}
-                          onClose={handleCloseDelete}
-                          aria-labelledby="responsive-dialog-title"
+                      <div
+                        className="p-2 my-3 d-flex justify-content-between"
+                        style={{
+                          background: "rgb(166 156 156 / 31%)",
+                          boxShadow: "0px 6px 5px #a9a6a6",
+                        }}
+                      >
+                        <div> {plan.Name}</div>
+                        <div>
+                          <Dialog
+                            fullScreen={fullScreen}
+                            open={openDelete}
+                            onClose={handleCloseDelete}
+                            aria-labelledby="responsive-dialog-title"
+                          >
+                            <DialogTitle id="responsive-dialog-title">
+                              {"Are you sure want to perform delete action?"}
+                            </DialogTitle>
+                            <DialogActions>
+                              <Button autoFocus onClick={handleCloseDelete}>
+                                Cancel
+                              </Button>
+                              <Button onClick={handleDeleteOK} autoFocus>
+                                Ok
+                              </Button>
+                            </DialogActions>
+                          </Dialog>
+                          <DeleteOutlineIcon
+                            onClick={() => deleteContainerHandler(plan)}
+                          />
+                        </div>
+                      </div>
+                      <ul
+                        className="list-unstyled p-1 m-0"
+                        style={{
+                          minHeight: "5vh",
+                          maxHeight: "78vh",
+                          overflow: "overlay",
+                          boxShadow: "0px 0px 10px grey",
+                        }}
+                      >
+                        {plan.Tasks && plan.Tasks.length > 0
+                          ? plan.Tasks.map((task: TasksModel, index) => (
+                              <Draggable
+                                key={task._id}
+                                draggableId={task._id ? task._id : "33"}
+                                index={index}
+                              >
+                                {(provided) => (
+                                  <li
+                                    ref={provided.innerRef}
+                                    {...provided.draggableProps}
+                                    {...provided.dragHandleProps}
+                                  >
+                                    <div
+                                      style={{
+                                        boxShadow:
+                                          "rgba(128, 128, 128, 0.82) 0px 0px 10px",
+                                        margin: "10px",
+                                        padding: "10px",
+                                        fontSize: "14px",
+                                        lineHeight: "18px",
+                                      }}
+                                    >
+                                      <span className="badge rounded-pill text-bg-primary me-2">
+                                        Tsk-1474
+                                      </span>
+                                      {task.TaskName}
+                                      <div className="d-flex justify-content-between align-items-center">
+                                        <img
+                                          src={ImageContant.GirlImage}
+                                          className="rounded-circle"
+                                          alt=""
+                                          style={{
+                                            width: "40px",
+                                            height: "40px",
+                                            objectFit: "cover",
+                                          }}
+                                        />
+                                        <div>21/2/1994</div>
+                                      </div>
+                                    </div>
+                                  </li>
+                                )}
+                              </Draggable>
+                            ))
+                          : ""}
+                        {provided.placeholder}
+                      </ul>
+                      <Dialog
+                        open={openTask}
+                        onClose={handleCloseTask}
+                        PaperProps={{
+                          component: "form",
+                          onSubmit: (
+                            event: React.FormEvent<HTMLFormElement>
+                          ) => {
+                            event.preventDefault();
+                            const formData = new FormData(event.currentTarget);
+                            const formJson = Object.fromEntries(
+                              (formData as any).entries()
+                            );
+                            const taskName = formJson.task;
+                            let task: TasksModel = new TasksModel();
+                            task.TaskName = taskName;
+                            task.PlanID = id;
+                            task.ContainerID = containerID;
+                            handleCloseTask();
+                            fetch(APIConstant.ADD_TASK, {
+                              method: "POST",
+                              body: JSON.stringify(task),
+                              headers: {
+                                "Content-type":
+                                  "application/json; charset=UTF-8",
+                              },
+                            })
+                              .then((response) => response.json())
+                              .then((json) => getTaskList());
+                          },
+                        }}
+                      >
+                        <DialogContent>
+                          <TextField
+                            autoFocus
+                            margin="dense"
+                            id="Task"
+                            name="task"
+                            label="Task Name"
+                            type="text"
+                            fullWidth
+                            variant="standard"
+                          />
+                        </DialogContent>
+                        <DialogActions>
+                          <Button onClick={handleCloseTask}>Cancel</Button>
+                          <Button type="submit">Save</Button>
+                        </DialogActions>
+                      </Dialog>
+                      <div className="text-center">
+                        <Button
+                          variant="text"
+                          startIcon={<AddIcon />}
+                          onClick={() => handleClickOpenTask(plan._id)}
                         >
-                          <DialogTitle id="responsive-dialog-title">
-                            {"Are you sure want to perform delete action?"}
-                          </DialogTitle>
-                          <DialogActions>
-                            <Button autoFocus onClick={handleCloseDelete}>
-                              Cancel
-                            </Button>
-                            <Button onClick={handleDeleteOK} autoFocus>
-                              Ok
-                            </Button>
-                          </DialogActions>
-                        </Dialog>
-                        <DeleteOutlineIcon
-                          onClick={() => deleteContainerHandler(plan)}
-                        />
+                          Task
+                        </Button>
                       </div>
                     </div>
-                    <ul
-                      className="list-unstyled p-1 m-0"
-                      style={{
-                        minHeight: "5vh",
-                        maxHeight: "78vh",
-                        overflow: "overlay",
-                        boxShadow: "0px 0px 10px grey",
-                      }}
-                    >
-                      {plan.Tasks && plan.Tasks.length > 0
-                        ? plan.Tasks.map((task: TasksModel, index) => (
-                          <Draggable key={task._id} draggableId={task._id ? task._id : '33'} index={index}>
-                            {(provided) => (
-                              <li
-                                
-                                ref={provided.innerRef}
-                                {...provided.draggableProps}
-                                {...provided.dragHandleProps}
-                              >
-                                <div
-                                  style={{
-                                    boxShadow:
-                                      "rgba(128, 128, 128, 0.82) 0px 0px 10px",
-                                    margin: "10px",
-                                    padding: "10px",
-                                    fontSize: "14px",
-                                    lineHeight: "18px",
-                                  }}
-                                >
-                                  <span className="badge rounded-pill text-bg-primary me-2">
-                                    Tsk-1474
-                                  </span>
-                                  {
-                                  task.TaskName}
-                                  <div className="d-flex justify-content-between align-items-center">
-                                    <img
-                                      src={ImageContant.GirlImage}
-                                      className="rounded-circle"
-                                      alt=""
-                                      style={{
-                                        width: "40px",
-                                        height: "40px",
-                                        objectFit: "cover",
-                                      }}
-                                    />
-                                    <div>21/2/1994</div>
-                                  </div>
-                                </div>
-                              </li>
-                            )}
-                          </Draggable>
-                        ))
-                        : ""}
-                      {provided.placeholder}
-                    </ul>
-                    <Dialog
-                      open={openTask}
-                      onClose={handleCloseTask}
-                      PaperProps={{
-                        component: "form",
-                        onSubmit: (event: React.FormEvent<HTMLFormElement>) => {
-                          event.preventDefault();
-                          const formData = new FormData(event.currentTarget);
-                          const formJson = Object.fromEntries(
-                            (formData as any).entries()
-                          );
-                          const taskName = formJson.task;
-                          let task: TasksModel = new TasksModel();
-                          task.TaskName = taskName;
-                          task.PlanID = id;
-                          task.ContainerID = containerID;
-                          handleCloseTask();
-                          fetch(APIConstant.ADD_TASK, {
-                            method: "POST",
-                            body: JSON.stringify(task),
-                            headers: {
-                              "Content-type": "application/json; charset=UTF-8",
-                            },
-                          })
-                            .then((response) => response.json())
-                            .then((json) => getTaskList());
-                        },
-                      }}
-                    >
-                      <DialogContent>
-                        <TextField
-                          autoFocus
-                          margin="dense"
-                          id="Task"
-                          name="task"
-                          label="Task Name"
-                          type="text"
-                          fullWidth
-                          variant="standard"
-                        />
-                      </DialogContent>
-                      <DialogActions>
-                        <Button onClick={handleCloseTask}>Cancel</Button>
-                        <Button type="submit">Save</Button>
-                      </DialogActions>
-                    </Dialog>
-                    <div className="text-center">
-                      <Button
-                        variant="text"
-                        startIcon={<AddIcon />}
-                        onClick={() => handleClickOpenTask(plan._id)}
-                      >
-                        Task
-                      </Button>
-                    </div>
-                  </div>
-                )}
-              </Droppable>
-            ))
+                  )}
+                </Droppable>
+              ))
             : "No container Found"}
           <div className="my-4">
             <a className="btn btn-primary" onClick={handleClickOpen}>
