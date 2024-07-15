@@ -7,14 +7,16 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { TableVirtuoso, TableComponents } from 'react-virtuoso';
+import Button from '@mui/material/Button';
+import { Link } from 'react-router-dom';
+import { RepositoryModel } from '../../model/repository.model';
+import { useState } from 'react';
+import { APIConstant } from '../../constant/api.constant';
 
 interface Data {
-  calories: number;
-  carbs: number;
-  dessert: string;
-  fat: number;
+  Name: string;
+  Description: string;
   id: number;
-  protein: number;
 }
 
 interface ColumnData {
@@ -24,63 +26,46 @@ interface ColumnData {
   width: number;
 }
 
-type Sample = [string, number, number, number, number];
+type Sample = [string, string];
 
 const sample: readonly Sample[] = [
-  ['Frozen yoghurt', 159, 6.0, 24, 4.0],
-  ['Ice cream sandwich', 237, 9.0, 37, 4.3],
-  ['Eclair', 262, 16.0, 24, 6.0],
-  ['Cupcake', 305, 3.7, 67, 4.3],
-  ['Gingerbread', 356, 16.0, 49, 3.9],
+  ['Frozen yoghurt', 'Frozen yoghurt'],
 ];
 
 function createData(
   id: number,
-  dessert: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number,
+  Name: string,
+  Description: string,
 ): Data {
-  return { id, dessert, calories, fat, carbs, protein };
+  return { id, Name, Description};
 }
 
 const columns: ColumnData[] = [
   {
     width: 200,
-    label: 'Dessert',
-    dataKey: 'dessert',
+    label: 'Name',
+    dataKey: 'Name',
   },
   {
     width: 120,
-    label: 'Calories\u00A0(g)',
-    dataKey: 'calories',
+    label: 'Description',
+    dataKey: 'Description',
     numeric: true,
   },
-  {
-    width: 120,
-    label: 'Fat\u00A0(g)',
-    dataKey: 'fat',
-    numeric: true,
-  },
-  {
-    width: 120,
-    label: 'Carbs\u00A0(g)',
-    dataKey: 'carbs',
-    numeric: true,
-  },
-  {
-    width: 120,
-    label: 'Protein\u00A0(g)',
-    dataKey: 'protein',
-    numeric: true,
-  },
+ 
 ];
 
-const rows: Data[] = Array.from({ length: 200 }, (_, index) => {
-  const randomSelection = sample[Math.floor(Math.random() * sample.length)];
-  return createData(index, ...randomSelection);
-});
+
+// const rows: Data[] = sample.map((_,index)=>{
+//   const randomSelection:Sample = sample[index];
+//   return createData(index, ...randomSelection);
+// })
+ 
+
+// const rows: Data[] = Array.from({ length: 200 }, (_, index) => {
+//   const randomSelection = sample[Math.floor(Math.random() * sample.length)];
+//   return createData(index, ...randomSelection);
+// });
 
 const VirtuosoTableComponents: TableComponents<Data> = {
   Scroller: React.forwardRef<HTMLDivElement>((props, ref) => (
@@ -134,14 +119,33 @@ function rowContent(_index: number, row: Data) {
 }
 
 export default function Repository() {
+  const [repositoryList,setRepositoryList]=useState<any>([])
+
+  React.useEffect(()=>{
+    fetchData()
+  },[])
+
+  const fetchData = async () => {
+    const response = await fetch(APIConstant.GET_REPOSITORY);
+    const result = await response.json();
+    setRepositoryList(result);
+  };
+
   return (
+    <div>
+       <div className='d-flex justify-content-between'>
+       <h4>Repository</h4>
+      <Link to={'add'}><Button variant="outlined">+ Repository</Button></Link> 
+       </div>
     <Paper style={{ height: 400, width: '100%' }}>
       <TableVirtuoso
-        data={rows}
+        data={repositoryList}
         components={VirtuosoTableComponents}
         fixedHeaderContent={fixedHeaderContent}
         itemContent={rowContent}
       />
     </Paper>
+    </div>
+
   );
 }

@@ -15,5 +15,7 @@ export class APIConstant{
     public static GET_TASK_CONTAINER=APIConstant.BaseAPI+"getTaskContainer"
     public static ADD_TASK=APIConstant.BaseAPI+"addTask"
     public static DELETE_CONTAINER=APIConstant.BaseAPI+"delteContainer"
+    public static ADD_REPOSITORY=APIConstant.BaseAPI+"addRepository"
+    public static GET_REPOSITORY=APIConstant.BaseAPI+"getRepository"
 
 }
