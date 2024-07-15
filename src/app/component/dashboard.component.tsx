@@ -27,7 +27,7 @@ const Dashboard = () => {
    
   return (
     <div className="m-4">
-      <div className="container-fluid bg-body-tertiary shadow-sm p-4">
+      {/* <div className="container-fluid bg-body-tertiary shadow-sm p-4">
         <div className="d-flex justify-content-between align-items-center">
           <div>
             <p className="fw-bold fs-3 m-0">Welcome,</p>
@@ -36,7 +36,7 @@ const Dashboard = () => {
           <Timer/>
         
         </div>
-      </div>
+      </div> */}
       <AppList/>
 
     </div>
