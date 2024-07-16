@@ -12,7 +12,19 @@ body{
     font-size: 12px!important;
     padding: 5px 10px!important;
 }
-
+.button:active, 
+ button:active,
+.button:focus, 
+ button:focus,
+.button:hover, 
+button:hover,
+    .form-control:focus{
+    outline:none !important;
+    box-shadow: none !important;
+}
+.form-control{
+    border: 1px solid black!important;
+}
 img{
     object-fit: cover;
 }
@@ -25,4 +37,7 @@ img{
 .kanban-column{
     height: 78vh;
     overflow: overlay;
+}
+.css-10o2lyd-MuiStack-root{
+    padding-top:0!important ;
 }

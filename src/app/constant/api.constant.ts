@@ -17,5 +17,7 @@ export class APIConstant{
     public static DELETE_CONTAINER=APIConstant.BaseAPI+"delteContainer"
     public static ADD_REPOSITORY=APIConstant.BaseAPI+"addRepository"
     public static GET_REPOSITORY=APIConstant.BaseAPI+"getRepository"
+    public static DELETE_RECORD=APIConstant.BaseAPI+"deleteRecord"
+
 
 }
